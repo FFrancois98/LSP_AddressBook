@@ -4,22 +4,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
 public class AddressBook {
 	// person Array
-	Person  persons[];
-	int count; 	// array counter
 	boolean needSave; // the variable to assign saving
 	
 	private static Scanner x; // the scanner for searching the text file and editing
 	
 	public AddressBook() {
 		// TODO Auto-generated constructor stub
-		this.count = 0;
 		this.needSave = false;
 	}
 	
@@ -213,11 +209,12 @@ public class AddressBook {
 		}
 		
 	}
+	
 	private static String getSorterName(String line) {
 		return line.split("|")[0]; // gets the first ele which is lname
 	}
 
-public void sortByZip(String filepath) {
+	public void sortByZip(String filepath) {
 		
 		String tempFile = "temp.txt";
 		File oldFile = new File(filepath);
@@ -257,7 +254,43 @@ public void sortByZip(String filepath) {
 		}
 		
 	}
+
 	private static String getSorterZip(String line) {
-		return line.split("|")[5]; // gets the first ele which is lname
+		return line.split("|")[5]; // gets the fifth element which is zip
+	}
+	
+	public void printAddressBook(String filepath) {
+		// prints out the address book
+		
+		String lname = ""; String fname = ""; String addy = ""; 
+		String cty = ""; String state = ""; String zip = ""; 
+		String phNum = "";
+		
+		try {
+			x = new Scanner(new File(filepath));
+			x.useDelimiter("[|\n]");
+			System.out.println(" Address Book: " + filepath);
+			
+			while (x.hasNext()) {
+				
+				lname = x.next();
+				fname = x.next();
+				addy = x.next();
+				cty = x.next();
+				state = x.next();
+				zip = x.next();
+				phNum = x.next();
+				
+				
+				System.out.println("Name: " + lname + ", " + fname + '\n' + "Address: " + addy + '\n' + "City: " + cty + 
+						'\n' + "State: " + state + '\n' + "Zip: " + zip + '\n' + "Phone Number: " + phNum + '\n');			
+				
+			}
+		}
+		catch (Exception e) {
+			System.out.println("There was an error printing out the address book. :(");
+		}
+		
+		
 	}
 }
