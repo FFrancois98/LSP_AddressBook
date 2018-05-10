@@ -1,26 +1,34 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.io.*;
+import java.util.*;
+
 
 public class AddressBook {
-	// person Array
-	boolean needSave; // the variable to assign saving
 	
-	private static Scanner x; // the scanner for searching the text file and editing
+	// the variable to assign saving
+	boolean needSave;
+	String filepath;
+	// the scanner for searching the text file and editing
+	private static Scanner x; 
 	
+	// addressBook constructor
 	public AddressBook() {
 		// TODO Auto-generated constructor stub
 		this.needSave = false;
+		this.filepath = "";
+	}
+	public AddressBook(String filepath) {
+		this.filepath = filepath;
 	}
 	
+	public String getFilepath() {
+		return filepath;
+	}
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}	
+	
 	// adding a contact to the address book
-	public void addContact(Person contact, String filepath) {
+	public void addContact(Person contact) {
 		
 		try {
 			// create file that are editable.
@@ -39,6 +47,7 @@ public class AddressBook {
 			System.out.println("There was aproblem adding the contact to the address book.");
 		}
 	}
+	
 	// get - set for boolean
 	public boolean isNeedSave() {
 		return needSave;
@@ -48,7 +57,7 @@ public class AddressBook {
 	}
 	
 	// removing a contact from the address book
-	public void removeContact(Person contact, String searchTerm, String filepath) {
+	public void removeContact(Person contact, String searchTerm) {
 		String tempFile = "temp.txt";
 		File oldFile = new File(filepath);
 		File newFile = new File(tempFile);
@@ -104,7 +113,7 @@ public class AddressBook {
 	}
 	
 	// Updating a contact in the address book
-	public void updateContact(Person contact, String searchTerm, String filepath) {
+	public void updateContact(Person contact, String searchTerm) {
 		String tempFile = "temp.txt"; 		// creates a temp address book txt file
 		File oldFile = new File(filepath);	// the current address book being edited
 		File newFile = new File(tempFile);  // the new edited address book 
@@ -169,7 +178,8 @@ public class AddressBook {
 		
 	}
 	
-	public void sortByName(String filepath) {
+	// sort the addressBook by name
+	public void sortByName() {
 		
 		String tempFile = "temp.txt";
 		File oldFile = new File(filepath);
@@ -209,12 +219,13 @@ public class AddressBook {
 		}
 		
 	}
-	
+	// sorting helper function
 	private static String getSorterName(String line) {
 		return line.split("|")[0]; // gets the first ele which is lname
 	}
 
-	public void sortByZip(String filepath) {
+	// sort the addressBook by zip
+	public void sortByZip() {
 		
 		String tempFile = "temp.txt";
 		File oldFile = new File(filepath);
@@ -254,12 +265,13 @@ public class AddressBook {
 		}
 		
 	}
-
+	// sorting helper function
 	private static String getSorterZip(String line) {
 		return line.split("|")[5]; // gets the fifth element which is zip
 	}
 	
-	public void printAddressBook(String filepath) {
+	// prints the addressBook to the console
+	public void printAddressBook() {
 		// prints out the address book
 		
 		String lname = ""; String fname = ""; String addy = ""; 
@@ -282,8 +294,8 @@ public class AddressBook {
 				phNum = x.next();
 				
 				
-				System.out.println("Name: " + lname + ", " + fname + '\n' + "Address: " + addy + '\n' + "City: " + cty + 
-						'\n' + "State: " + state + '\n' + "Zip: " + zip + '\n' + "Phone Number: " + phNum + '\n');			
+				System.out.println("Name: " + lname + ", " + fname + '\n' + "Address: " + addy + " " + cty + 
+						" " + state + " " + zip + '\n' + "Phone Number: " + phNum + '\n');			
 				
 			}
 		}
