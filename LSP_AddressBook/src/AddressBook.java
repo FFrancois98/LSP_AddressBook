@@ -1,9 +1,13 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class AddressBook {
 	// person Array
@@ -19,7 +23,8 @@ public class AddressBook {
 		this.needSave = false;
 	}
 	
-	public void addContact(Person contact, String filepath, int inx) {
+	// adding a contact to the address book
+	public void addContact(Person contact, String filepath) {
 		
 		try {
 			// create file that are editable.
@@ -28,7 +33,7 @@ public class AddressBook {
 			PrintWriter pw = new PrintWriter(bw);
 			
 			// adds the contact to the addressbook. 
-			pw.println(contact.lastName + "," + contact.firstName + "|" + contact.address + "|"
+			pw.println(contact.lastName + "|" + contact.firstName + "|" + contact.address + "|"
 					+ contact.city + "|" + contact.state + "|" + 
 					contact.zip + "|" + contact.phone);
 			pw.flush();
@@ -46,7 +51,8 @@ public class AddressBook {
 		this.needSave = needSave;
 	}
 	
-	public void removeContact(Person contact, String searchTerm, String filepath, int inx) {
+	// removing a contact from the address book
+	public void removeContact(Person contact, String searchTerm, String filepath) {
 		String tempFile = "temp.txt";
 		File oldFile = new File(filepath);
 		File newFile = new File(tempFile);
@@ -63,7 +69,7 @@ public class AddressBook {
 			
 			// creates a scanner to read the file
 			x = new Scanner(new File(filepath));
-			x.useDelimiter("[|,\n]");
+			x.useDelimiter("[|\n]");
 			
 			while(x.hasNext()) {
 				// reads in the current address book info
@@ -80,7 +86,7 @@ public class AddressBook {
 					// printed to the new temp file. if the contact is
 					// being deleted, it is ignored and not rinted in the
 					// new file.
-					pw.println(lname + "," + fname + "|" + addy + "|"
+					pw.println(lname + "|" + fname + "|" + addy + "|"
 							+ cty + "|" + state	+ "|" + zip + "|" + phNum);
 				}
 				
@@ -101,7 +107,8 @@ public class AddressBook {
 		
 	}
 	
-	public void updateContact(Person contact, String searchTerm, String filepath, int inx) {
+	// Updating a contact in the address book
+	public void updateContact(Person contact, String searchTerm, String filepath) {
 		String tempFile = "temp.txt"; 		// creates a temp address book txt file
 		File oldFile = new File(filepath);	// the current address book being edited
 		File newFile = new File(tempFile);  // the new edited address book 
@@ -119,7 +126,7 @@ public class AddressBook {
 			
 			// creates a scanner to read the file
 			x = new Scanner(new File(filepath));
-			x.useDelimiter("[|,\n]");
+			x.useDelimiter("[|\n]");
 			
 			while (x.hasNext()) {
 				// reads in the current address book info
@@ -135,7 +142,7 @@ public class AddressBook {
 					// searches and checks the last name. 
 					// if true, the contact is edited and printed to the
 					// temp address book file.
-					pw.println(lname + "," + fname + "|" + contact.address + "|"
+					pw.println(lname + "|" + fname + "|" + contact.address + "|"
 							+ contact.city + "|" + contact.state + "|" + 
 							contact.zip + "|" + contact.phone);
 				}
@@ -164,6 +171,50 @@ public class AddressBook {
 			System.out.println("There was an error updating the contact. :(");
 		}
 		
+	}
+	
+	public void sortByName(String filepath) {
+		
+		String tempFile = "temp.txt";
+		File oldFile = new File(filepath);
+		File newFile = new File(tempFile);
+		
+		try {
+			// opens file for reading
+			FileReader fr = new FileReader(oldFile);
+			BufferedReader br = new BufferedReader(fr); 
+			// uses treeMap to sort the lines
+			Map<String, String> map = new TreeMap<String, String>(); 
+			String line = "";
+			
+			while ((line = br.readLine()) != null) {
+				map.put(getSorter(line), line);
+			}
+			br.close();
+			
+			// creates a new file to write the sorted file to.
+			FileWriter fw = new FileWriter(tempFile, true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			for (String val : map.values()) {
+				pw.println(val);
+			}
+			pw.flush();		// cleans the printer stream
+			pw.close();
+			oldFile.delete();
+			
+			// renames the temp file to the address book filepath
+			File dump = new File(filepath); 
+			newFile.renameTo(dump);
+		}
+		catch (Exception e) {
+			System.out.println("There was an error sorting the address book. :(");
+		}
+		
+	}
+	private static String getSorter(String line) {
+		return line.split("|")[0]; // gets the first ele which is lname
 	}
 
 }
