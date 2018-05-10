@@ -15,7 +15,7 @@ public class AddressBook {
 		this.count = 0;
 		this.needSave = false;
 	}
-	public static void addContact(Person[] persons, Person contact, int inx) {
+	public void addContact(Person[] persons, Person contact, int inx) {
 		persons[inx] = contact;
 	}
 	// get - set for boolean
@@ -75,7 +75,7 @@ public class AddressBook {
 				}
 			}
 			x.close();		// closes the scanner
-			pw.flush();		// cleans the printer
+			pw.flush();		// cleans the printer stream
 			pw.close();		// closes the printer
 			oldFile.delete();	// deletes the current the address book
 			
@@ -88,7 +88,7 @@ public class AddressBook {
 			
 			// if there is an error read an creating the files,
 			// it doesn't cause memory leaks, and crash the program.
-			System.out.println("Error");
+			System.out.println("There was an error updating the contact. :(");
 		}
 		
 	}
