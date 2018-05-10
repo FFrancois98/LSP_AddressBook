@@ -188,7 +188,7 @@ public class AddressBook {
 			String line = "";
 			
 			while ((line = br.readLine()) != null) {
-				map.put(getSorter(line), line);
+				map.put(getSorterName(line), line);
 			}
 			br.close();
 			
@@ -213,8 +213,51 @@ public class AddressBook {
 		}
 		
 	}
-	private static String getSorter(String line) {
+	private static String getSorterName(String line) {
 		return line.split("|")[0]; // gets the first ele which is lname
 	}
 
+public void sortByZip(String filepath) {
+		
+		String tempFile = "temp.txt";
+		File oldFile = new File(filepath);
+		File newFile = new File(tempFile);
+		
+		try {
+			// opens file for reading
+			FileReader fr = new FileReader(oldFile);
+			BufferedReader br = new BufferedReader(fr); 
+			// uses treeMap to sort the lines
+			Map<String, String> map = new TreeMap<String, String>(); 
+			String line = "";
+			
+			while ((line = br.readLine()) != null) {
+				map.put(getSorterZip(line), line);
+			}
+			br.close();
+			
+			// creates a new file to write the sorted file to.
+			FileWriter fw = new FileWriter(tempFile, true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			for (String val : map.values()) {
+				pw.println(val);
+			}
+			pw.flush();		// cleans the printer stream
+			pw.close();
+			oldFile.delete();
+			
+			// renames the temp file to the address book filepath
+			File dump = new File(filepath); 
+			newFile.renameTo(dump);
+		}
+		catch (Exception e) {
+			System.out.println("There was an error sorting the address book. :(");
+		}
+		
+	}
+	private static String getSorterZip(String line) {
+		return line.split("|")[5]; // gets the first ele which is lname
+	}
 }
