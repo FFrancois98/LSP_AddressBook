@@ -37,9 +37,9 @@ public class AddressBook {
 			PrintWriter pw = new PrintWriter(bw);
 			
 			// adds the contact to the addressbook. 
-			pw.println(contact.lastName + "|" + contact.firstName + "|" + contact.address + "|"
-					+ contact.city + "|" + contact.state + "|" + 
-					contact.zip + "|" + contact.phone);
+			pw.println(contact.getLastName() + "|" + contact.getFirstName() + "|" + contact.getAddress() + "|"
+					+ contact.getCity() + "|" + contact.getState() + "|" + 
+					contact.getZip() + "|" + contact.getPhone());
 			pw.flush();
 			pw.close();
 		}
@@ -147,9 +147,9 @@ public class AddressBook {
 					// searches and checks the last name. 
 					// if true, the contact is edited and printed to the
 					// temp address book file.
-					pw.println(lname + "|" + fname + "|" + contact.address + "|"
-							+ contact.city + "|" + contact.state + "|" + 
-							contact.zip + "|" + contact.phone);
+					pw.println(lname + "|" + fname + "|" + contact.getAddress() + "|"
+							+ contact.getCity() + "|" + contact.getState()+ "|" + 
+							contact.getZip() + "|" + contact.getPhone());
 				}
 				else {
 					// if not true, the current contact is just printed
