@@ -5,15 +5,13 @@ import java.util.*;
 public class AddressBook {
 	
 	// the variable to assign saving
-	boolean needSave;
-	String filepath;
+	private String filepath;
 	// the scanner for searching the text file and editing
 	private static Scanner x; 
 	
 	// addressBook constructor
 	public AddressBook() {
 		// TODO Auto-generated constructor stub
-		this.needSave = false;
 		this.filepath = "";
 	}
 	public AddressBook(String filepath) {
@@ -48,13 +46,7 @@ public class AddressBook {
 		}
 	}
 	
-	// get - set for boolean
-	public boolean isNeedSave() {
-		return needSave;
-	}
-	public void setNeedSave(boolean needSave) {
-		this.needSave = needSave;
-	}
+	
 	
 	// removing a contact from the address book
 	public void removeContact(Person contact, String searchTerm) {

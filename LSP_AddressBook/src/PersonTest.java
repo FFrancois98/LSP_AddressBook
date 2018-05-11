@@ -25,6 +25,7 @@ public class PersonTest {
 		Person contact = new Person("Bob", "Gordon", "2225 4th Street NW",
 				"Washington", "DC", "20059", "(718) 567 - 8231");
 		
+		
 		assertEquals("Gordon", contact.getLastName());
 		assertEquals("Bob", contact.getFirstName());
 		assertEquals("2225 4th Street NW", contact.getAddress());
@@ -61,7 +62,9 @@ public class PersonTest {
 		contact.setCity("Washington");
 		contact.setPhone("(929) 234 - 6745");
 		
-		assertEquals("2300 Georgia Avenue", contact.getAddress());
+		String addy = "2300 Georgia Avenue";
+		
+		assertEquals(addy, contact.getAddress());
 		assertEquals("Washington", contact.getCity());
 		assertEquals("(929) 234 - 6745", contact.getPhone());
 		
