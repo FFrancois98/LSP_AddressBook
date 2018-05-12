@@ -9,7 +9,7 @@ public class AddressBookMenu {
 			File newFile = new File(filepath);
 			PrintWriter pw = new PrintWriter(newFile);
 			
-			pw.println();
+			pw.printf("");
 			pw.flush();
 			pw.close();
 			

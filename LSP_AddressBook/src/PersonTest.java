@@ -16,7 +16,6 @@ public class PersonTest {
 		assertEquals("", contact.getZip());
 		assertEquals("", contact.getPhone());
 		
-		//fail("Not yet implemented");
 	}
 
 	@Test
@@ -35,7 +34,6 @@ public class PersonTest {
 		assertEquals("(718) 567 - 8231", contact.getPhone());
 		
 		
-		//fail("Not yet implemented");
 	}
 
 	@Test
@@ -50,8 +48,6 @@ public class PersonTest {
 		assertEquals("Washington", contact.getCity());
 		assertEquals("(929) 234 - 6745", contact.getPhone()); 
 		
-		
-		//fail("Not yet implemented");
 	}
 
 	@Test
@@ -68,7 +64,6 @@ public class PersonTest {
 		assertEquals("Washington", contact.getCity());
 		assertEquals("(929) 234 - 6745", contact.getPhone());
 		
-		//fail("Not yet implemented");
 	}
 
 }

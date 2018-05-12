@@ -42,14 +42,12 @@ public class AddressBook {
 			pw.close();
 		}
 		catch (Exception e) {
-			System.out.println("There was aproblem adding the contact to the address book.");
+			System.out.println("There was a problem adding the contact to the address book.");
 		}
 	}
 	
-	
-	
 	// removing a contact from the address book
-	public void removeContact(Person contact, String searchTerm) {
+	public void removeContact(String searchTerm) {
 		String tempFile = "temp.txt";
 		File oldFile = new File(filepath);
 		File newFile = new File(tempFile);
@@ -71,6 +69,7 @@ public class AddressBook {
 			while(x.hasNext()) {
 				// reads in the current address book info
 				lname = x.next();
+				//System.out.println("This is lname: " + lname);
 				fname = x.next();
 				addy = x.next();
 				cty = x.next();
@@ -147,7 +146,7 @@ public class AddressBook {
 					// if not true, the current contact is just printed
 					// in the temp file.
 					
-					pw.println(lname + "," + fname + "|" + addy + "|"
+					pw.println(lname + "|" + fname + "|" + addy + "|"
 							+ cty + "|" + state	+ "|" + zip + "|" + phNum);
 				}
 			}
@@ -259,7 +258,7 @@ public class AddressBook {
 	}
 	// sorting helper function
 	private static String getSorterZip(String line) {
-		return line.split("|")[5]; // gets the fifth element which is zip
+		return line.split("|")[4]; // gets the fifth element which is zip
 	}
 	
 	// prints the addressBook to the console
@@ -286,7 +285,7 @@ public class AddressBook {
 				phNum = x.next();
 				
 				
-				System.out.println("Name: " + lname + ", " + fname + '\n' + "Address: " + addy + " " + cty + 
+				System.out.println("Name: " + lname + "| " + fname + '\n' + "Address: " + addy + " " + cty + 
 						" " + state + " " + zip + '\n' + "Phone Number: " + phNum + '\n');			
 				
 			}
